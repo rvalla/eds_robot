@@ -1,0 +1,6 @@
+{
+  "name":"eds_robot",
+  "mail_scope": "https://www.googleapis.com/auth/gmail.readonly",
+  "calendar_scope": "https://www.googleapis.com/auth/calendar.readonly",
+  "drive_scope": "https://accounts.google.com/o/oauth2/auth"
+}
