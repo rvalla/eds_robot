@@ -1,0 +1,63 @@
+<style>
+body {
+  font-size: 100%;
+  font-family: "Georgia", serif;
+  text-align: left;
+  color: #222222;
+  background-color: #cccccc;
+}
+
+h1, h2, h3 {
+	font-family: "Verdana", sans-serif;
+  color: #e4a124;
+  padding: 0 0 0 0;
+  text-align: left;
+  text-decoration: bold;
+}
+
+h1 {
+	font-size: 170%;
+}
+
+h2 {
+	font-size: 130%;
+}
+
+h3 {
+	font-size: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+table {
+  align: center;
+  width: 80%;
+  text-align: left;
+}
+
+button {
+  background-color: #d2d2be;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 130%;
+  border: none;
+  border-radius: 8px;
+  color: #343420;
+  margin: 2px 2px;
+  padding: 2%;
+  text-align: center;
+  text-decoration: none;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #343420;
+	color: #d2d2be;
+}
+
+button:active {
+	background-color: #d2d2be;
+	color: #343420;
+}
+</style>

@@ -1,6 +1,10 @@
 {
   "name":"eds_robot",
-  "mail_scope": "https://www.googleapis.com/auth/gmail.readonly",
-  "calendar_scope": "https://www.googleapis.com/auth/calendar.readonly",
+  "testing": true,
+  "mail": "robot@eds.edu.ar",
+  "credentials": "data/secret.json",
+  "token": "data/token.json",
+  "mail_scope": "https://www.googleapis.com/auth/gmail.compose",
+  "calendar_scope": "https://www.googleapis.com/auth/calendar.events",
   "drive_scope": "https://accounts.google.com/o/oauth2/auth"
 }
