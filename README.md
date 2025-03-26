@@ -17,7 +17,7 @@ in calendar. You can see *test_mail.py* to give it a try. Actually is a work in 
 You will need a *Google Cloud* project, a *Google account* and your *credentials* to use these tools.
 Then you are ready to edit *data/config.json* file.
 
-'''
+```
 {
   "name":"be_creative",
   "testing": true,
@@ -28,6 +28,6 @@ Then you are ready to edit *data/config.json* file.
   "calendar_scope": "https://www.googleapis.com/auth/calendar.events",
   "drive_scope": "https://accounts.google.com/o/oauth2/auth"
 }
-'''
+```
 
 Feel free to contact us by [mail](mailto:rvalla@eds.edu.ar).
