@@ -1,12 +1,12 @@
 import json
 import authorize as auth
-from mail import Mail
+from gmail import GMail
 
 auth.update_token() #First we create or update our token...
 config = json.load(open("data/config.json")) #We load the configuration file...
 
 #We need an instance of Mail():
-mail = Mail(config["token"], [config["mail_scope"], config["calendar_scope"]])
+mail = GMail(config["token"], [config["mail_scope"], config["calendar_scope"]])
 
 #We ask the user the destination email address:
 to = input()

@@ -5,7 +5,7 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-class Mail():
+class GMail():
   "The class to work with Google Cloud Gmail API"
 
   #We need our credentials and the service...
