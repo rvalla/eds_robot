@@ -28,13 +28,34 @@ class GCalendar():
     else:
       event["start"] = {"dateTime": start.astimezone(self.timezone).isoformat(), "timeZone": "America/Argentina/Buenos_Aires"}
       event["end"] = {"dateTime": end.astimezone(self.timezone).isoformat(), "timeZone": "America/Argentina/Buenos_Aires"}
-    print(event)
     self.service.events().insert(calendarId=calendar_id, body=event).execute()
+    print("I created " + summary + " event...", end="\n")
 
   #To create events from a csv file...
-  def create_events(self, file_path, separator):
-    lines = open(filepath).read_lines()[1:]
-    
+  def create_events(self, file_path):
+    lines = open(file_path).readlines()[1:]
+    for l in lines:
+      event = l[:-1].split(";")
+      calendar_id = event[0]
+      summary = event[1]
+      description = event[2]
+      fullday, start = self.create_date(event[3], event[4])
+      fullday, end = self.create_date(event[5], event[6])
+      self.create_event(calendar_id, summary, description, start, end, fullday)
+
+  #To create a datetime object from csv events list...
+  def create_date(self, date, time):
+    fullday = False
+    date_object = None
+    if not time == "-":
+      d = date.split("/")
+      t = time.split(":")
+      date_object = dt.datetime(int(d[2]),int(d[1]),int(d[0]),int(t[0]),int(t[1]))
+    else:
+      d = date.split("/")
+      date_object = dt.datetime(int(d[2]),int(d[1]),int(d[0]))
+      fullday = True
+    return fullday, date_object
 
   #To list events on a calendar from date...
   def get_calendar_events(self, calendar_id, start_date):
