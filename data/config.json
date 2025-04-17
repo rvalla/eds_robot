@@ -4,7 +4,14 @@
   "mail": "robot@eds.edu.ar",
   "credentials": "data/secret.json",
   "token": "data/token.json",
-  "mail_scope": "https://www.googleapis.com/auth/gmail.compose",
   "calendar_scope": "https://www.googleapis.com/auth/calendar",
-  "drive_scope": "https://accounts.google.com/o/oauth2/auth"
+  "chat_scope": "https://www.googleapis.com/auth/chat.messages",
+  "classroom_scope": "https://www.googleapis.com/auth/classroom.courses",
+  "docs_scope": "See, edit, create, and delete all your Google Docs documents",
+  "drive_scope": "https://www.googleapis.com/auth/drive",
+  "forms_scope": "https://www.googleapis.com/auth/forms.body",
+  "mail_scope": "https://www.googleapis.com/auth/gmail.compose",  
+  "spreadsheets_scope": "https://www.googleapis.com/auth/spreadsheets",
+  "ex_credentials": "../data/secret.json",
+  "ex_token": "../data/token.json"
 }

@@ -3,11 +3,12 @@
 <meta name="email" content="robot@eds.edu.ar">
 <style>
 body {
+  width: 60%;
   font-size: 115%;
   font-family: "Georgia", serif;
   text-align: left;
   color: #222222;
-  background-color: #ffe6ad;
+  background-color: #cccccc;
 }
 
 h1, h2, h3 {
@@ -36,12 +37,18 @@ img {
 
 table {
   align: center;
-  width: 80%;
+  width: 100%;
   text-align: left;
 }
 
+@media screen and (max-width: 900px) {
+  body {
+    width: 80%;
+  }
+}
+
 @media screen and (max-width: 600px) {
-  table {
+  body {
     width: 100%;
   }
 }

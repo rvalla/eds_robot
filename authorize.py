@@ -4,19 +4,18 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-def update_token():
+def update_token(config_path, scopes):
+  
   #List of apis to authorize...
-  config = json.load(open("data/config.json"))
-  SCOPES = [config["mail_scope"], config["calendar_scope"]]
+  SCOPES = scopes
 
   print("I will try to authorize the following Google Cloud APIs:", end="\n")
   for s in SCOPES:
     print("- " + s, end="\n")
 
   credentials = None
-  if os.path.exists("data/token.json"):
-    credentials = Credentials.from_authorized_user_file("data/token.json", SCOPES)
-    print("I will try to authorize the following Google Cloud APIs:", end="\n")
+  if os.path.exists(config_path + "token.json"):
+    credentials = Credentials.from_authorized_user_file(config_path + "token.json", SCOPES)
 
   if not credentials or not credentials.valid:
     if credentials and credentials.expired and credentials.refresh_token:
@@ -24,9 +23,9 @@ def update_token():
       credentials.refresh(Request())
     else:
       print("I will need your help!", end="\n\n")
-      flow = InstalledAppFlow.from_client_secrets_file("data/secret.json", SCOPES)
+      flow = InstalledAppFlow.from_client_secrets_file(config_path + "secret.json", SCOPES)
       credentials = flow.run_local_server(port=0)
-    with open("data/token.json", "w") as token:
+    with open(config_path + "token.json", "w") as token:
       token.write(credentials.to_json())
   else:
     print("Your credentials are still valid.", end="\n")

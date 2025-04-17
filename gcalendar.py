@@ -23,8 +23,8 @@ class GCalendar():
     event["guestsCanInviteOthers"] = False
     event["guestsCanSeeOtherGuests"] = False
     if fullday:
-      event["start"] = {"date": str(start.year) + "-" + str(start.month) + "-" + str(start.day), "timeZone": "America/Argentina/Buenos_Aires"}
-      event["end"] = {"date": str(end.year) + "-" + str(end.month) + "-" + str(end.day), "timeZone": "America/Argentina/Buenos_Aires"}
+      event["start"] = {"date": start.isoformat(), "timeZone": "America/Argentina/Buenos_Aires"}
+      event["end"] = {"date": end.isoformat(), "timeZone": "America/Argentina/Buenos_Aires"}
     else:
       event["start"] = {"dateTime": start.astimezone(self.timezone).isoformat(), "timeZone": "America/Argentina/Buenos_Aires"}
       event["end"] = {"dateTime": end.astimezone(self.timezone).isoformat(), "timeZone": "America/Argentina/Buenos_Aires"}
@@ -53,7 +53,7 @@ class GCalendar():
       date_object = dt.datetime(int(d[2]),int(d[1]),int(d[0]),int(t[0]),int(t[1]))
     else:
       d = date.split("/")
-      date_object = dt.datetime(int(d[2]),int(d[1]),int(d[0]))
+      date_object = dt.date(int(d[2]),int(d[1]),int(d[0]))
       fullday = True
     return fullday, date_object
 
