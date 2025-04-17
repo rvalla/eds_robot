@@ -7,11 +7,12 @@
   "calendar_scope": "https://www.googleapis.com/auth/calendar",
   "chat_scope": "https://www.googleapis.com/auth/chat.messages",
   "classroom_scope": "https://www.googleapis.com/auth/classroom.courses",
-  "docs_scope": "See, edit, create, and delete all your Google Docs documents",
+  "docs_scope": "https://www.googleapis.com/auth/documents",
   "drive_scope": "https://www.googleapis.com/auth/drive",
   "forms_scope": "https://www.googleapis.com/auth/forms.body",
   "mail_scope": "https://www.googleapis.com/auth/gmail.compose",  
   "spreadsheets_scope": "https://www.googleapis.com/auth/spreadsheets",
+  "ex_auth": "../data/",
   "ex_credentials": "../data/secret.json",
   "ex_token": "../data/token.json"
 }

@@ -10,7 +10,12 @@ and more. We are currently working on:
 ### Calendar to email
 
 The idea is simply to automaticaly send personalized emails with a summary of future events
-in calendar. You can see *test_mail.py* to give it a try. Actually is a work in progress...  
+in calendar. Actually is a work in progress...  
+
+### Events to calendar
+
+Simply the functions needed to create bulk events in calendar from a *.csv* file. You can see
+*examples/test_calendar.py*.  
 
 ## To run any code
 
@@ -19,14 +24,22 @@ Then you are ready to edit *data/config.json* file.
 
 ```
 {
-  "name":"be_creative",
+  "name":"eds_robot",
   "testing": true,
   "mail": "your@email.address",
   "credentials": "data/secret.json",
   "token": "data/token.json",
-  "mail_scope": "https://www.googleapis.com/auth/gmail.compose",
-  "calendar_scope": "https://www.googleapis.com/auth/calendar.events",
-  "drive_scope": "https://accounts.google.com/o/oauth2/auth"
+  "calendar_scope": "https://www.googleapis.com/auth/calendar",
+  "chat_scope": "https://www.googleapis.com/auth/chat.messages",
+  "classroom_scope": "https://www.googleapis.com/auth/classroom.courses",
+  "docs_scope": "https://www.googleapis.com/auth/documents",
+  "drive_scope": "https://www.googleapis.com/auth/drive",
+  "forms_scope": "https://www.googleapis.com/auth/forms.body",
+  "mail_scope": "https://www.googleapis.com/auth/gmail.compose",  
+  "spreadsheets_scope": "https://www.googleapis.com/auth/spreadsheets",
+  "ex_auth": "../data/",
+  "ex_credentials": "../data/secret.json",
+  "ex_token": "../data/token.json"
 }
 ```
 
