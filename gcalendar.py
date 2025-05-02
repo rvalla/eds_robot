@@ -36,12 +36,17 @@ class GCalendar():
     lines = open(file_path).readlines()[1:]
     for l in lines:
       event = l[:-1].split(";")
-      calendar_id = event[0]
+      calendar_id = self.calendars[event[0]]["id"]
       summary = event[1]
       description = event[2]
       fullday, start = self.create_date(event[3], event[4])
       fullday, end = self.create_date(event[5], event[6])
       self.create_event(calendar_id, summary, description, start, end, fullday)
+
+  #To delete an event...
+  def delete_event(self, calendar_id, event_id):
+    self.service.events().delete(calendarId=calendar_id, eventId=event_id).execute()
+    print("I deleted the event " + event_id + " in calendar " + calendar_id + "...", end="\n")
 
   #To create a datetime object from csv events list...
   def create_date(self, date, time):
@@ -58,15 +63,16 @@ class GCalendar():
     return fullday, date_object
 
   #To list events on a calendar from date...
-  def get_calendar_events(self, calendar_id, start_date):
+  def get_calendar_events(self, calendar_id, start_date, *, max_results=200):
     sd = start_date.isoformat() + "Z"
     events = self.service.events().list(calendarId=calendar_id, timeMin=sd,
-                                  singleEvents=True, maxResults=200).execute()
+                                  singleEvents=True, orderBy="startTime",
+                                  maxResults=max_results).execute()
+    print("I get events in calendar " + calendar_id, end="\n")
     return events.get("items")    
 
   #To get a calendars list for a user...
   def get_calendar_list(self):
-    token = None
     calendar_list = self.service.calendarList().list().execute()
     return calendar_list["items"]
 
