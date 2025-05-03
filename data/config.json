@@ -1,7 +1,7 @@
 {
   "name":"eds_robot",
   "testing": true,
-  "path_prefix": "test_",
+  "file_prefix": "test_",
   "mail": "robot@eds.edu.ar",
   "credentials": "data/secret.json",
   "token": "data/token.json",
@@ -15,5 +15,6 @@
   "spreadsheets_scope": "https://www.googleapis.com/auth/spreadsheets",
   "ex_auth": "../data/",
   "ex_credentials": "../data/secret.json",
+  "ex_html": "../data/",
   "ex_token": "../data/token.json"
 }

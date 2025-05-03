@@ -1,20 +1,17 @@
-<head>
-<meta name="author" content="Robot Del Sol">
-<meta name="email" content="robot@eds.edu.ar">
-<style>
 body {
   width: 60%;
   font-size: 115%;
   font-family: "Georgia", serif;
   text-align: left;
   color: #222222;
-  background-color: #cccccc;
+  background-color: #eeeeee;
 }
 
 h1, h2, h3 {
   font-family: "Verdana", sans-serif;
   color: #e5a40e;
-  padding: 1% 1% 1% 1%;
+  padding: 0%;
+  margin: 0%;
   text-align: left;
   text-decoration: bold;
 }
@@ -39,6 +36,22 @@ table {
   align: center;
   width: 100%;
   text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+tr {
+  padding: 0%;
+}
+td {
+  vertical-align: top;
+  padding: 2%;
+}
+
+hr {
+  border-width: 0;
+  background-color: #e5a40e;
+  height: 2px;
 }
 
 @media screen and (max-width: 900px) {
@@ -60,8 +73,8 @@ button {
   border: none;
   border-radius: 8px;
   color: #343420;
-  margin: 2px 2px;
-  padding: 2%;
+  margin: 2%;
+  padding: 3%;
   text-align: center;
   text-decoration: none;
   transition-duration: 0.4s;
@@ -76,5 +89,16 @@ button:active {
   background-color: #d2d2be;
   color: #343420;
 }
-</style>
-</head>
+
+a {
+  text-decoration: none;
+}
+a:link {
+  color: #e5a40e;
+}
+a:visited{
+  color: #e5a40e;
+}
+a:hover {
+  color: #222222;
+}
