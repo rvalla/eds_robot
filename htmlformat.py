@@ -22,15 +22,14 @@ class HtmlFormat():
     message_body += self.events_rows(next_week_events, True)
     message_body += self.hr_row()
     message_body += self.empty_row()
-    message_body += self.title_row("Más adelante:")
-    message_body += self.events_rows(later_events, False)
-    message_body += self.empty_row()
+    if len(later_events) > 0:
+      message_body += self.title_row("Más adelante:")
+      message_body += self.events_rows(later_events, False)
+      message_body += self.hr_row()
+      message_body += self.empty_row()
     message_body += self.mail_footer
     message_body += "</table>\n</body>\n</html>"
     return message_body
-
-  def empty_row(self):
-    return "<tr><td colspan=4></td></tr>"
 
   def events_rows(self, events, in_next_week):
     rows = ""
@@ -47,9 +46,9 @@ class HtmlFormat():
     return row
   
   def date_cell(self, date, interval, week_day, in_next_week):
-    cell = "<td><p class=\"date\">"
+    cell = "<td style=\"min-width:100px;\"><p class=\"date\">"
     if not in_next_week:
-      cell += "en " + str(interval) + " días<br>"
+      cell += "En " + str(interval) + " días<br>"
       cell += date.strftime(self.date_format) + "<br>"
     else:
       cell += self.week_days[week_day] + " "
@@ -74,6 +73,9 @@ class HtmlFormat():
 
   def hr_row(self):
     return "<tr><td colspan=4><hr></td></tr>\n"
+
+  def empty_row(self):
+    return "<tr><td colspan=4></td></tr>"
 
   def html_link(self, href, text):
     return "<a href='" + href + "'>" + text + "</a>"

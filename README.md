@@ -9,13 +9,29 @@ and more. We are currently working on:
 
 ### Calendar to email
 
-The idea is simply to automaticaly send personalized emails with a summary of future events
-in calendar. Actually is a work in progress...  
+Using **GMail()**, **GCalendar()** and **HtmlFormat()** the code in *remainders.py* can send
+personalized emails with events in the coming weeks. To configure the remainders you need two
+*.csv* files store at */data/csv*.  
 
-### Events to calendar
+```
+calendar_name;n
+robot@eds.edu.ar;1
+Test;2
+...
+```
+```
+mail;calendars;n
+robot@eds.edu.ar;calendar 1,calendar 2;1
+another@us.er;calendar 1,calendar 5;2
+another@us.er;calendar 1,calendar 3;3
+...
+```
 
-Simply the functions needed to create bulk events in calendar from a *.csv* file. You can see
-*examples/test_calendar.py*.  
+### Events in calendar
+
+The **GCalendar()** class can get, create or delete events. You can check
+*examples/test_calendar.py*. Some other functions are related to *calendar to email*
+remainders.  
 
 ## To run any code
 
@@ -26,6 +42,7 @@ Then you are ready to edit *data/config.json* file.
 {
   "name":"eds_robot",
   "testing": true,
+  "file_prefix": "test_",
   "mail": "your@email.address",
   "credentials": "data/secret.json",
   "token": "data/token.json",
@@ -39,6 +56,7 @@ Then you are ready to edit *data/config.json* file.
   "spreadsheets_scope": "https://www.googleapis.com/auth/spreadsheets",
   "ex_auth": "../data/",
   "ex_credentials": "../data/secret.json",
+  "ex_html": "../data/",
   "ex_token": "../data/token.json"
 }
 ```

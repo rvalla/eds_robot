@@ -9,6 +9,7 @@ class GCalendar():
 
   #We need our credentials and the service...
   def __init__(self, credentials_path, scopes):
+    self.today = dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
     self.timezone = dt.timezone(dt.timedelta(hours=-3))
     self.credentials = Credentials.from_authorized_user_file(credentials_path, scopes)
     self.service = service = build("calendar", "v3", credentials=self.credentials)
@@ -62,8 +63,54 @@ class GCalendar():
       fullday = True
     return fullday, date_object
 
-  #To list events on a calendar from date...
-  def get_calendar_events(self, calendar_id, start_date, *, max_results=200):
+  #To build a merged events list...
+  def build_events_list(self, calendars_names, start_date):
+    all_events = self.get_calendars_events(calendars_names, start_date)
+    merged_list = []
+    for c in range(len(all_events)):
+      for e in all_events[c]:
+        merged_list.append(self.clean_event_data(calendars_names[c], e))
+    merged_list.sort(key=lambda merged_list:merged_list[3])
+    return merged_list
+
+  #To extract desired data from events...
+  def clean_event_data(self, calendar_name, event):
+    data = [calendar_name]
+    data.append(event["summary"])
+    data.append(event["description"])
+    data.append(self.get_event_date(event["start"]))
+    data.append(self.get_event_date(event["end"]))
+    data.append(self.get_interval(data[3]))
+    data.append(data[3].weekday())
+    data.append(event["htmlLink"])
+    if "hangoutLink" in event:
+      data.append(event["htmlLink"])
+    else:
+      data.append(None)
+    return data
+    
+  #To create a datetime object from event date...
+  def get_event_date(self, date_data):
+    date = None
+    if "dateTime" in date_data:
+      date = dt.datetime.fromisoformat(date_data["dateTime"][:-6])
+    else:
+      date = dt.datetime.fromisoformat(date_data["date"])
+    return date
+
+  #To known how many days are left until event...
+  def get_interval(self, date):
+    return (date-self.today).days
+
+  #To get events from a list of calendars...
+  def get_calendars_events(self, calendars_names, start_date, *, max_results=100):
+    all_events = []
+    for n in calendars_names:
+      all_events.append(self.get_calendar_events(self.calendars[n]["id"], start_date))
+    return all_events
+
+  #To get events on a calendar from date...
+  def get_calendar_events(self, calendar_id, start_date, *, max_results=100):
     sd = start_date.isoformat() + "Z"
     events = self.service.events().list(calendarId=calendar_id, timeMin=sd,
                                   singleEvents=True, orderBy="startTime",

@@ -2,6 +2,12 @@
 
 # eds_robot: changelog
 
+## 2025-05-05: v0.5.0 beta
+
+The *personalized remainders* are ready. **GCalendar()** was improved and now can delete
+events too. **HtmlFormat()** take care of mail body formatting (css was tested on 
+email clients as well as browsers). See */examples* folder to run your tests.  
+
 ## 2025-04-17: v0.1.0 alpha
 
 For now **eds_robot** can send emails and create events in calendars. Running **authorize.py**

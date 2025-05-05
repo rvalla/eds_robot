@@ -5,13 +5,13 @@ class Util():
 
   #Getting next monday date...
   def next_monday(self):
-    today = dt.date.today()
+    today = dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
     weekday = today.weekday()
     return today + dt.timedelta(days=7-weekday)    
 
-  #Getting a date object from iso format...
+  #Getting a datetime object from iso format...
   def isoformat_to_date(self, s):
-    return dt.datetime.fromisoformat(s)
+    return dt.date.fromisoformat(s)
   
   #Getting a datetime object from iso format...
   def isoformat_to_datetime(self, s):
