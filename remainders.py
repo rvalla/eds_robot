@@ -46,7 +46,7 @@ def filter_events(events, selected_calendars):
       next_week_events.append(events[n])
     n += 1
   while s < 3 and n < len(events):
-    if bool(re.search("#importante", events[n][2])):
+    if bool(re.search("#importante", events[n][2])) and events[n][0] in selected_calendars:
       later_events.append(events[n])
       s += 1
     n += 1
