@@ -19,7 +19,11 @@ class HtmlFormat():
     message_body += "</style>\n</head>\n<body>\n<table>\n"
     message_body += self.mail_header
     message_body += self.title_row("La próxima semana:")
-    message_body += self.events_rows(next_week_events, True)
+    if len(next_week_events) > 0:
+      message_body += self.events_rows(next_week_events, True)
+    else:
+      message_body += self.hr_row()
+      message_body += self.no_events_row()
     message_body += self.hr_row()
     message_body += self.empty_row()
     if len(later_events) > 0:
@@ -43,6 +47,13 @@ class HtmlFormat():
     row += self.date_cell(event[3], event[5], event[6], in_next_week)
     row += self.summary_cell(event[0], event[1], event[2], event[7], event[8])
     row += "</tr>\n"
+    return row
+
+  def no_events_row(self):
+    row = "<tr>\n<td colspan=4>\n"
+    row += "<p>Parece que no hay ningún evento durante la próxima semana en tus calendarios."
+    row += "<br>Supongo que tendrás que trabajar igual.</p>"
+    row += "</td>\n</tr>\n"
     return row
   
   def date_cell(self, date, interval, week_day, in_next_week):

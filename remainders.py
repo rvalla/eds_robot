@@ -36,7 +36,7 @@ next_sunday = next_monday + dt.timedelta(days=6)
 print("I am ready to collect all events in the next weeks...", end="\n")
 all_events = calendar.build_events_list(t_calendars, next_monday)
 
-def filter_events(events, selected_calendars):
+def filter_events(events, selected_calendars, important_events):
   next_week_events = []
   later_events = []
   n = 0
@@ -45,15 +45,15 @@ def filter_events(events, selected_calendars):
     if events[n][0] in selected_calendars:
       next_week_events.append(events[n])
     n += 1
-  while s < 3 and n < len(events):
+  while s < important_events and n < len(events):
     if bool(re.search("#importante", events[n][2])) and events[n][0] in selected_calendars:
       later_events.append(events[n])
       s += 1
     n += 1
   return next_week_events, later_events
 
-def send_remainders_mail(to, events, selected_calendars):
-  next_week_events, later_events = filter_events(events, selected_calendars)
+def send_remainders_mail(to, events, selected_calendars, important_events):
+  next_week_events, later_events = filter_events(events, selected_calendars, important_events)
   message_body = html.remainders_mail_body(next_week_events, later_events)
   html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: Próxima semana", message_body)
   mail.send_mail(config["mail"], to, html_message)
@@ -62,11 +62,11 @@ t_mails = []
 file = open(t_mails_path).readlines()[1:]
 for l in file:
   data = l.split(";")
-  t_mails.append([data[0], data[1].split(",")])
+  t_mails.append((data[0], data[1].split(","), data[2]))
 print("The mailing list was created!", end="\n")
 print("I am ready to start sending mails...", end="\n")
 
 for m in t_mails:
-  send_remainders_mail(m[0], all_events, m[1])
+  send_remainders_mail(m[0], all_events, m[1], int(m[2]))
 
 print("That's all!", end="\n")
