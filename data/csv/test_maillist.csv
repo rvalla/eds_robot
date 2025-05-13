@@ -1,3 +1,3 @@
-mail;calendars;important_events;n
-robot@eds.edu.ar;Test,robot@eds.edu.ar;3;1
-rvalla@eds.edu.ar;Test,robot@eds.edu.ar;5;2
+mail;calendars_suscriptions;calendars_permisions;later_events;later_tags;n
+robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;Test;3;#importante;1
+rvalla@eds.edu.ar;Test (BOT),robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;5;#importante;2

@@ -1,7 +1,7 @@
 {
   "name":"eds_robot",
-  "testing": false,
-  "file_prefix": "eds_",
+  "testing": true,
+  "file_prefix": "test_",
   "mail": "robot@eds.edu.ar",
   "credentials": "data/secret.json",
   "token": "data/token.json",

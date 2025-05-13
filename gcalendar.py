@@ -144,6 +144,7 @@ class GCalendar():
       self.calendars[item["summary"]] = {}
       self.calendars[item["summary"]]["summary"] = item["summary"]
       self.calendars[item["summary"]]["id"] = item["id"]
+      self.calendars[item["summary"]]["url"] = "https://calendar.google.com/calendar/u/0?cid=" + item["id"]
       self.calendars[item["summary"]]["timeZone"] = item["timeZone"]
       if "description" in item.keys():
         self.calendars[item["summary"]]["description"] = item["description"]

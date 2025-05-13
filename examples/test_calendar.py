@@ -17,10 +17,10 @@ calendar = GCalendar(config["ex_token"], [config["mail_scope"], config["calendar
 #We are going to create and delete a set of events...
 events_count = 5
 events_count_in_file = 20
-calendars = ["robot@eds.edu.ar", "Test"]
+calendars = ["robot@eds.edu.ar", "Test (BOT)"]
 today_t = dt.datetime.today()
 today_d = dt.date.today()
-cleaning = True #Deciding if we delete our random events at the end of this test...
+cleaning = False #Deciding if we delete our random events at the end of this test...
 
 #We create a file to test bulk event creation:
 events_file = open("../data/csv/test_calendarevents.csv", "w")
@@ -28,7 +28,7 @@ events_file.write("calendar_name;event_summary;event_description;start_date;star
 for e in range(events_count_in_file):
   events_file.write(rd.choice(calendars) + ";")
   events_file.write("Test " + str(e+1) + ";")
-  events_file.write("This is a bulk test using test_calendar.py in /examples." + ";")
+  events_file.write("This is a bulk test using test_calendar.py in /examples" + rd.choice([" #importante","",""]) +  ".;")
   if rd.random() < 0.4:
     start_date = today_d + dt.timedelta(days=rd.randint(0,30))
     end_date = start_date + dt.timedelta(days=1)
@@ -48,11 +48,11 @@ for e in range(events_count):
   if rd.random() < 0.4:
     start_date = today_d + dt.timedelta(days=rd.randint(0,14))
     end_date = start_date + dt.timedelta(days=1)
-    calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test" + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, True)
+    calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test " + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, True)
   else:
     start_date = today_t + dt.timedelta(days=rd.randint(0,14), hours=rd.randint(0,23))
     end_date = start_date + dt.timedelta(hours=rd.randint(0,4), minutes=rd.randint(30,60))
-    calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test" + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, False)
+    calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test " + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, False)
 
 #We now create all events in our recently created file:
 calendar.create_events("../data/csv/test_calendarevents.csv")
