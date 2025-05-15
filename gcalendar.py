@@ -148,7 +148,7 @@ class GCalendar():
       self.calendars[item["summary"]]["timeZone"] = item["timeZone"]
       if "description" in item.keys():
         self.calendars[item["summary"]]["description"] = item["description"]
-  
+
   #About me...
   def __str__(self):
     return "I am the class to work with Google Cloud Calendar API."

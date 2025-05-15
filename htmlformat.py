@@ -12,12 +12,8 @@ class HtmlFormat():
     self.mail_footer = open(path_prefix + "html/" + file_prefix + "footer.html", "r").read()
 
   def remainders_mail_body(self, next_week_events, later_events):
-    message_body = "<html lang=\"es\">\n<head>\n"
-    message_body += self.mail_head
-    message_body += "<style>\n"
-    message_body += self.mail_style
-    message_body += "</style>\n</head>\n<body>\n<table>\n"
-    message_body += self.mail_header
+    message_body = self.get_mail_header()
+    message_body += self.remainders_hello()
     message_body += self.title_row("La próxima semana:")
     if len(next_week_events) > 0:
       message_body += self.events_rows(next_week_events, True)
@@ -31,8 +27,8 @@ class HtmlFormat():
       message_body += self.events_rows(later_events, False)
       message_body += self.hr_row()
       message_body += self.empty_row()
-    message_body += self.mail_footer
-    message_body += "</table>\n</body>\n</html>"
+    message_body += self.remainders_disclaimer()
+    message_body += self.get_mail_footer()
     return message_body
 
   def events_rows(self, events, in_next_week):
@@ -88,11 +84,140 @@ class HtmlFormat():
   def empty_row(self):
     return "<tr><td colspan=4></td></tr>"
 
+  def remainders_hello(self):
+    return "<tr>\n<td colspan=4>\n<p>¡Hola!<br>Preparé para vos este correo personalizado " + \
+        "consultando los calendarios compartidos que más te interesan.<br>¡Espero que " + \
+        "tengas lindo fin de semana!</p>\n</td>\n</tr>\n"
+
+  def remainders_disclaimer(self):
+    return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente  " + \
+        "al consultar los calendarios compartidos. La información suministrada puede contener errores, " + \
+        "incluso puede ser modificada por humanos en los próximos días. Si necesitás que incluya " +\
+        "eventos de otros calendarios o necesitás permiso para modificar alguno, podés " + \
+        "<a href=\"mailto:robot@eds.edu.ar\">escribirme</a>.</p>\n</td>\n</tr>\n"
+
+  def remainders_first_contact_mail_body(self, calendars_data, calendars_suscriptions, calendars_permissions, later_count, later_tags):
+    message_body = self.get_mail_header()
+    message_body += self.remainders_first_contact_hello()
+    message_body += self.title_row("Tu configuración:")
+    message_body += self.format_calendars_suscriptions(calendars_data, calendars_suscriptions)
+    if not calendars_permissions[0] == "-":
+      message_body += self.format_calendars_permissions(calendars_data, calendars_permissions)
+    message_body += self.format_later_events_configuration(later_count, later_tags)
+    message_body += self.title_row("¿Necesitás modificar tu configuración?")
+    message_body += self.configuration_change_message()
+    message_body += self.hr_row()
+    message_body += self.empty_row()
+    message_body += self.remainders_first_contact_disclaimer()
+    message_body += self.get_mail_footer()
+    return message_body
+
+  def format_calendars_suscriptions(self, calendars_data, calendars_suscriptions):
+    m = "<tr>\n<td colspan=4>\n<p>Cuando prepare tus correos semanales voy a incluir eventos " + \
+        "de los siguientes calendarios compartidos:\n"
+    m += self.calendars_list(calendars_data, calendars_suscriptions)
+    m += "</p>\n</td>\n</tr>\n"
+    return m
+
+  def format_calendars_permissions(self, calendars_data, calendars_permissions):
+    m = "<tr>\n<td colspan=4>\n<p>Por el momento, tenés permiso para crear o modificar " + \
+        "eventos en los siguientes calendarios compartidos:\n"
+    m += self.calendars_list(calendars_data, calendars_permissions)
+    m += "</p>\n</td>\n</tr>\n"
+    return m
+
+  def format_later_events_configuration(self, later_count, later_tags):
+    m = "<tr>\n<td colspan=4>\n<p>Los correos semanales personalizados tienen dos secciones. " + \
+        "En la sección <i>próxima semana</i> vas a ver todos los eventos que existan durante esa " + \
+        "semana. En la sección <i>más adelante</i> voy a incluir hasta " \
+        + self.html_tagging("b", str(later_count)) + " eventos destacados que en su descripción contengan "
+    m += self.later_tags_string(later_tags) + ".</p>"
+    m += "<p>No hace falta que hagas nada para recibir mis correos, pero si querés ver los calendarios " + \
+          "compartidos en " + self.html_link("https://calendar.google.com", "Calendar") + " hace falta que " + \
+          "te suscribas. Podés hacerlo haciendo click en los links de la lista de acá arriba (se va a abrir " + \
+          "Calendar y va aparecer una ventana con el botón " + \
+          self.html_tagging("i", "agregar") + ".</p>\n</td>\n</tr>\n"
+    return m
+
+  def configuration_change_message(self):
+    m = "<tr>\n<td colspan=4>\n<p>Los correos semanales personalizados que te voy a enviar pueden configurarse. " + \
+          "Podés <a href=\"mailto:robot@eds.edu.ar\">escribirme</a> solicitando los cambios que necesites. " + \
+          "Los parámetros de configuración disponibles son:"
+    parameters = ["Tu selección de calendarios compartidos", "El número máximo de eventos en la sección <i>más adelante</i>",
+                  "Las etiquetas que transforman un evento en <i>evento destacado</i>"]
+    m += self.text_list(parameters)
+    m += "Todos los detalles están en el documento "
+    m += self.html_link("https://docs.google.com/document/d/1NXDwTJyq6s8l0wBX-MmhDpOHlZPGwLLEc2Vidp4xy8w", "2025_robot_calendarioscompartidos")
+    m += ".</p><p>Espero que mis correos hagan la vida de los humanos de la escuela un poco más fácil.</p>"
+    return m
+  
+  def later_tags_string(self, later_tags):
+    m = ""
+    if len(later_tags) > 1:
+      m += "las etiquetas "
+      for t in range(len(later_tags)):
+        m += self.html_tagging("b", self.html_tagging("i", later_tags[t]))
+        if t < len(later_tags) - 2:
+          m += ", "
+        elif t == len(later_tags) - 2:
+          m += " y "
+    else:
+      m += "la etiqueta " + self.html_tagging("b", self.html_tagging("i", later_tags[0]))
+    return m
+
+  def calendars_list(self, calendars_data, calendars):
+    titles = []
+    hrefs = []
+    for c in calendars:
+      titles.append(c)
+      hrefs.append(calendars_data[c]["url"])
+    return self.link_list(hrefs, titles)
+
+  def remainders_first_contact_hello(self):
+    return "<tr>\n<td colspan=4>\n<p>¡Hola! Soy <b>Robot Del Sol</b>,<br>A partir de hoy, " + \
+        "una vez a la semana, voy a enviarte un correo personalizado incluyendo los eventos " + \
+        "de los calendarios compartidos que más te interesan. Te acerco todo lo que necesitás " + \
+        "saber.</p>\n</td>\n</tr>\n"
+
+  def remainders_first_contact_disclaimer(self):
+    return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente  " + \
+        "para comunicarme con vos por primera vez. Si ya habías recibido alguno de mis correos " + \
+        "te pido disculpas. Recordá que podés <a href=\"mailto:robot@eds.edu.ar\">escribirme</a> para " + \
+        "sacarte cualquier duda que tengas.</p>\n</td>\n</tr>\n"
+
+  def get_mail_header(self):
+    header = "<html lang=\"es\">\n<head>\n"
+    header += self.mail_head
+    header += "<style>\n"
+    header += self.mail_style
+    header += "</style>\n</head>\n<body>\n<table>\n"
+    header += self.mail_header
+    return header
+
+  def get_mail_footer(self):
+    m = self.mail_footer
+    m += "</table>\n</body>\n</html>"
+    return m
+
   def html_link(self, href, text):
-    return "<a href='" + href + "'>" + text + "</a>"
+    return "<a href=\"" + href + "\">" + text + "</a>"
 
   def html_tagging(self, tag, text):
-    return "<" + tag + ">" + text + "</" + tag + ">" 
+    return "<" + tag + ">" + text + "</" + tag + ">"
+
+  def text_list(self, texts):
+    m = "<ul>\n"
+    for t in texts:
+      m += "<li>" + t + "</li>\n"
+    m += "</ul>\n"
+    return m
+
+  def link_list(self, hrefs, titles):
+    m = "<ul>\n"
+    for f, t in zip(hrefs, titles):
+      m += "<li>" + self.html_link(f, t) + "</li>\n"
+    m += "</ul>\n"
+    return m
   
   #About me...
   def __str__(self):

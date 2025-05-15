@@ -133,3 +133,8 @@ a:visited{
 a:hover {
   color: #333333;
 }
+
+ul, li {
+    color: #333333;
+    list-style-type: disc;
+}
