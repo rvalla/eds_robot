@@ -1,10 +1,11 @@
 {
   "name":"eds_robot",
-  "testing": true,
-  "file_prefix": "test_",
+  "testing": false,
+  "file_prefix": "eds_",
   "mail": "robot@eds.edu.ar",
   "credentials": "data/secret.json",
   "token": "data/token.json",
+  "last_first_contact": 48,
   "calendar_scope": "https://www.googleapis.com/auth/calendar",
   "chat_scope": "https://www.googleapis.com/auth/chat.messages",
   "classroom_scope": "https://www.googleapis.com/auth/classroom.courses",

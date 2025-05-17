@@ -2,6 +2,11 @@
 
 # eds_robot: changelog
 
+## 2025-05-17: v0.6.0 beta
+
+Now you can send *first contact* emails to new users running *remainders_first_contact.py*.
+Some improvements in *remainders.py*. Ready to start saving some usage data in *data/csv/stats.csv*.  
+
 ## 2025-05-05: v0.5.0 beta
 
 The *personalized remainders* are ready. **GCalendar()** was improved and now can delete

@@ -12,6 +12,9 @@ config_path = "data/config.json"
 config = json.load(open(config_path)) #We load the configuration file...
 t_calendars_path = "data/csv/" + config["file_prefix"] + "calendarlist.csv"
 t_mails_path = "data/csv/" + config["file_prefix"] + "maillist.csv"
+SENT = 0
+ERRORS = 0
+FAILURES = []
 
 #We update our token...
 auth.update_token("data/", [config["mail_scope"], config["calendar_scope"]])
@@ -80,6 +83,23 @@ print("The mailing list was created!", end="\n")
 print("I am ready to start sending mails...", end="\n")
 
 for m in t_mails:
-  send_remainders_mail(m[0], all_events, m[1], m[2], m[3])
+  try:
+    send_remainders_mail(m[0], all_events, m[1], m[2], m[3])
+    SENT += 1
+  except:
+    print("I couldn't send anything to " + m[0] + "...", end="\n")
+    ERRORS += 1
+    FAILURES.append(m[0])
+
+#We save our data in stats.csv now...
+file = open("data/csv/stats.csv", "a")
+line = dt.date.today().isoformat() + ";"
+line += str(config["testing"]) + ";"
+line += "remainders;"
+line += str(SENT) + ";"
+line += str(ERRORS) + ";"
+line += str(FAILURES) + "\n"
+file.write(line)
+file.close()
 
 print("That's all!", end="\n")

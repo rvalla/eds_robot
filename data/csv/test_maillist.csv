@@ -1,5 +1,5 @@
 mail;calendars_suscriptions;calendars_permisions;later_events;later_tags;n
-robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;Test (BOT);3;#importante,#feriados,#acto;1
-rvalla@eds.edu.ar;Test (BOT),robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;5;#importante;2
-robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;-;3;#importante,#acto;3
-rvalla@eds.edu.ar;Test (BOT),robot@eds.edu.ar;-;5;#importante;4
+robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;Test (BOT);3;#importante,#feriados,#acto;0
+rvalla@eds.edu.ar;Test (BOT),robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;5;#importante;1
+robot@eds.edu.ar;Test (BOT),robot@eds.edu.ar;-;3;#importante,#acto;2
+rvalla@eds.edu.ar;Test (BOT),robot@eds.edu.ar;-;5;#importante;3
