@@ -13,7 +13,7 @@ errors = []
 #Variables to check...
 DOMAIN = "eds.edu.ar"
 CALENDARS = ["Agenda (BOT)","No hay clases (BOT)","1ro (BOT)","2do (BOT)","3ro (BOT)","4to (BOT)",
-          "5to (BOT)","6to (BOT)","7mo (BOT)","Coordinación (BOT)","Secretaría (BOT)","-"]
+          "5to (BOT)","6to (BOT)","7mo (BOT)","Coordinación (BOT)","Secretaría (BOT)","English Team (BOT)","-"]
 TAGS = ["#importante"]
 
 def check_domain(address):
