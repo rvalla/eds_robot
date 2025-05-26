@@ -9,7 +9,7 @@ body {
 
 h1, h2, h3 {
   font-family: "Garamond", sans-serif;
-  color: #e5a40e;
+  color: #555555;
   padding: 0%;
   margin: 0%;
   text-align: left;
@@ -35,7 +35,7 @@ p {
 }
 
 p.date {
-  font-family: "Garamond", sans-serif;
+  font-family: "monospace", sans-serif;
   font-weight: 200;
   text-align: right;
 }
@@ -98,7 +98,7 @@ hr {
 }
 
 button {
-  background-color: #d2d2be;
+  background-color: #cccccc;
   font-family: "Trebuchet MS", sans-serif;
   font-size: 130%;
   border: none;
@@ -112,12 +112,12 @@ button {
 }
 
 button:hover {
-  background-color: #343420;
+  background-color: #000000;
   color: #d2d2be;
 }
 
 button:active {
-  background-color: #d2d2be;
+  background-color: #000000;
   color: #343420;
 }
 
@@ -125,16 +125,16 @@ a {
   text-decoration: none;
 }
 a:link {
-  color: #e5a40e;
+  color: #555555;
 }
 a:visited{
-  color: #e5a40e;
+  color: #555555;
 }
 a:hover {
-  color: #333333;
+  color: #000000;
 }
 
 ul, li {
-    color: #333333;
+    color: #000000;
     list-style-type: disc;
 }
