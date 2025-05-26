@@ -7,7 +7,13 @@ class Util():
   def next_monday(self):
     today = dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
     weekday = today.weekday()
-    return today + dt.timedelta(days=7-weekday)    
+    return today + dt.timedelta(days=7-weekday) 
+
+  #Getting last monday date...
+  def last_monday(self):
+    today = dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+    weekday = today.weekday()
+    return today - dt.timedelta(days=weekday)
 
   #Getting a datetime object from iso format...
   def isoformat_to_date(self, s):

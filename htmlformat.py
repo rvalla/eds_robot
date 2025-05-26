@@ -1,3 +1,5 @@
+import re
+
 class HtmlFormat():
   "The class to format text into html"
 
@@ -95,6 +97,15 @@ class HtmlFormat():
         "incluso puede ser modificada por humanos en los próximos días. Si necesitás que incluya " +\
         "eventos de otros calendarios o necesitás permiso para modificar alguno, podés " + \
         "<a href=\"mailto:robot@eds.edu.ar\">escribirme</a>.</p>\n</td>\n</tr>\n"
+
+  def body_from_template(self, file_path, targets, data):
+    message_body = self.get_mail_header()
+    body = open(file_path, "r").read()
+    for i in range(len(targets)):
+      body = re.sub(targets[i], data[i], body)
+    message_body += body 
+    message_body += self.get_mail_footer()
+    return message_body
 
   def remainders_first_contact_mail_body(self, calendars_data, calendars_suscriptions, calendars_permissions, later_count, later_tags):
     message_body = self.get_mail_header()

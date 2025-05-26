@@ -36,10 +36,10 @@ class GMail():
     try:
       message = self.service.users().messages().send(userId=my_address, body=message).execute()
       print("Mail sent to " + to + ".", end="\n")
-      #return message
     except Exception as e:
-      print("Error while trying to send an email.", end="\n")
-      #return None
+      print("Error while trying to send an email.", end="\n\n")
+      print(e)
+      print("", end="\n\n")
 
   #About me...
   def __str__(self):
