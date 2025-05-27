@@ -1,4 +1,3 @@
-from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -6,9 +5,8 @@ class GSpreadsheets():
   "The class to work with Google Cloud spreadsheets API"
 
   #We need our credentials and the service...
-  def __init__(self, credentials_path, scopes):
-    self.credentials = Credentials.from_authorized_user_file(credentials_path, scopes)
-    self.service = service = build("sheets", "v4", credentials=self.credentials)
+  def __init__(self, credentials_path, credentials):
+    self.service = service = build("sheets", "v4", credentials=credentials)
 
   #To get a range in the spreadsheet...
   def get_range(self, spreadsheet_id, the_range):

@@ -31,3 +31,4 @@ def update_token(config_path, scopes):
     print("Your credentials are still valid.", end="\n")
 
   print("That's all!", end="\n")
+  return credentials

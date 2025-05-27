@@ -17,13 +17,13 @@ ERRORS = 0
 FAILURES = []
 
 #We update our token...
-auth.update_token("data/", [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
+credentials = auth.update_token("data/", [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
 
 #We need an instance Util(), Html(), GMail() and GCalendar():
 ut = Util()
 html = HtmlFormat("data/", config["file_prefix"])
-mail = GMail(config["token"], [config["mail_scope"]])
-calendar = GCalendar(config["token"], [config["calendar_scope"]])
+mail = GMail(config["token"], credentials)
+calendar = GCalendar(config["token"], credentials)
 
 #We load the targeted calendars...
 t_calendars = []

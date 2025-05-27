@@ -8,10 +8,11 @@ from htmlformat import HtmlFormat
 
 print("I am ready to test my mailing capabilities...", end="\n")
 config = json.load(open("../data/config.json")) #We load the configuration file...
-auth.update_token(config["ex_auth"], [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]]) #First we create or update our token...
+credentials = auth.update_token(config["ex_auth"], #First get our credentials...
+              [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]]) 
 
 #We need an instance of Mail():
-mail = GMail(config["ex_token"], [config["mail_scope"]])
+mail = GMail(config["ex_token"], credentials)
 html = HtmlFormat(config["ex_html"], config["file_prefix"])
 
 #We define replacement values for D1, D2, D3 and D4 tags on test_template.html...

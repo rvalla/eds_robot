@@ -1,7 +1,6 @@
 import base64
 from email.message import EmailMessage
 from email.mime.text import MIMEText
-from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -9,9 +8,8 @@ class GMail():
   "The class to work with Google Cloud Gmail API"
 
   #We need our credentials and the service...
-  def __init__(self, credentials_path, scopes):
-    self.credentials = Credentials.from_authorized_user_file(credentials_path, scopes)
-    self.service = service = build("gmail", "v1", credentials=self.credentials)
+  def __init__(self, credentials_path, credentials):
+    self.service = service = build("gmail", "v1", credentials=credentials)
 
   #We need to create a MIME mail...
   def create_mail(self, my_address, to, subject, message_text):

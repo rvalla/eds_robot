@@ -1,6 +1,5 @@
 import json as js
 import datetime as dt
-from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -8,11 +7,10 @@ class GCalendar():
   "The class to work with Google Cloud Calendar API"
 
   #We need our credentials and the service...
-  def __init__(self, credentials_path, scopes):
+  def __init__(self, credentials_path, credentials):
     self.today = dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
     self.timezone = dt.timezone(dt.timedelta(hours=-3))
-    self.credentials = Credentials.from_authorized_user_file(credentials_path, scopes)
-    self.service = service = build("calendar", "v3", credentials=self.credentials)
+    self.service = service = build("calendar", "v3", credentials=credentials)
     self.calendars = {}
     self.update_calendar_list()
 
