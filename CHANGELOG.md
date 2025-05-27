@@ -2,6 +2,13 @@
 
 # eds_robot: changelog
 
+## 2025-05-26: v0.6.5 beta
+
+Now **update_token()** in *authorize.py* returns *credentials* to pass them
+to the different clases of **eds_robot**. New **body_from_template()**
+function in **HtmlFormat()** allows you to send an email from a template
+replacing custom tags using *python regex module*.  
+
 ## 2025-05-17: v0.6.0 beta
 
 Now you can send *first contact* emails to new users running *remainders_first_contact.py*.
