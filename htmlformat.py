@@ -92,7 +92,7 @@ class HtmlFormat():
         "tengas lindo fin de semana!</p>\n</td>\n</tr>\n"
 
   def remainders_disclaimer(self):
-    return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente  " + \
+    return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente " + \
         "al consultar los calendarios compartidos. La información suministrada puede contener errores, " + \
         "incluso puede ser modificada por humanos en los próximos días. Si necesitás que incluya " +\
         "eventos de otros calendarios o necesitás permiso para modificar alguno, podés " + \
@@ -174,6 +174,19 @@ class HtmlFormat():
           m += " y "
     else:
       m += "la etiqueta " + self.html_tagging("b", self.html_tagging("i", later_tags[0]))
+    return m
+
+  def enumeration_string(self, word_list):
+    m = ""
+    if len(word_list) > 1:
+      for t in range(len(word_list)):
+        m += self.html_tagging("b", word_list[t])
+        if t < len(word_list) - 2:
+          m += ", "
+        elif t == len(word_list) - 2:
+          m += " y "
+    else:
+      m = self.html_tagging("b", word_list[0])
     return m
 
   def calendars_list(self, calendars_data, calendars):
