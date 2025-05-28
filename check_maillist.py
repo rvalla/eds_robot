@@ -51,6 +51,8 @@ for l in range(len(maillist)):
     errors.append((l, "later_events"))
   if not check_list(data[4].split(","), TAGS):
     errors.append((l, "later_tags"))
+  if not check_number(data[5]):
+    errors.append((l, "mediadores"))
 
 if len(errors) == 0:
   print("I didn't find any errors...", end="\n")
