@@ -13,6 +13,7 @@ class HtmlFormat():
     self.mail_header = open(path_prefix + "html/" + file_prefix + "header.html", "r").read()
     self.mail_footer = open(path_prefix + "html/" + file_prefix + "footer.html", "r").read()
 
+  #To build the body for a weekly remainder...
   def remainders_mail_body(self, next_week_events, later_events):
     message_body = self.get_mail_header()
     message_body += self.remainders_hello()
@@ -33,6 +34,22 @@ class HtmlFormat():
     message_body += self.get_mail_footer()
     return message_body
 
+  #To build the body for a daily remainder...
+  def daily_remainders_mail_body(self, daily_events):
+    message_body = self.get_mail_header()
+    message_body += self.daily_remainders_hello()
+    message_body += self.title_row("Tu día hoy en el Sol:")
+    if len(daily_events) > 0:
+      message_body += self.events_rows(daily_events, True)
+    else:
+      message_body += self.hr_row()
+      message_body += self.no_daily_events_row()
+    message_body += self.hr_row()
+    message_body += self.empty_row()
+    message_body += self.daily_remainders_disclaimer()
+    message_body += self.get_mail_footer()
+    return message_body
+
   def events_rows(self, events, in_next_week):
     rows = ""
     for e in events:
@@ -50,6 +67,13 @@ class HtmlFormat():
   def no_events_row(self):
     row = "<tr>\n<td colspan=4>\n"
     row += "<p>Parece que no hay ningún evento durante la próxima semana en tus calendarios."
+    row += "<br>Supongo que tendrás que trabajar igual.</p>"
+    row += "</td>\n</tr>\n"
+    return row
+
+  def no_daily_events_row(self):
+    row = "<tr>\n<td colspan=4>\n"
+    row += "<p>Parece que no hay ningún evento para el día de hoy en tus calendarios."
     row += "<br>Supongo que tendrás que trabajar igual.</p>"
     row += "</td>\n</tr>\n"
     return row
@@ -91,10 +115,22 @@ class HtmlFormat():
         "consultando los calendarios compartidos que más te interesan.<br>¡Espero que " + \
         "tengas lindo fin de semana!</p>\n</td>\n</tr>\n"
 
+  def daily_remainders_hello(self):
+    return "<tr>\n<td colspan=4>\n<p>¡Hola!<br>Preparé para vos este correo personalizado " + \
+        "consultando los calendarios compartidos que más te interesan.<br>¡Espero que " + \
+        "tengas un buen día!</p>\n</td>\n</tr>\n"
+
   def remainders_disclaimer(self):
     return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente " + \
         "al consultar los calendarios compartidos. La información suministrada puede contener errores, " + \
         "incluso puede ser modificada por humanos en los próximos días. Si necesitás que incluya " +\
+        "eventos de otros calendarios o necesitás permiso para modificar alguno, podés " + \
+        "<a href=\"mailto:robot@eds.edu.ar\">escribirme</a>.</p>\n</td>\n</tr>\n"
+
+  def daily_remainders_disclaimer(self):
+    return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente " + \
+        "al consultar los calendarios compartidos. La información suministrada puede contener errores, " + \
+        "incluso puede ser modificada por humanos en las próximas horas. Si necesitás que incluya " +\
         "eventos de otros calendarios o necesitás permiso para modificar alguno, podés " + \
         "<a href=\"mailto:robot@eds.edu.ar\">escribirme</a>.</p>\n</td>\n</tr>\n"
 

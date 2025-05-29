@@ -2,12 +2,18 @@
 
 # eds_robot: changelog
 
+## 2025-05-28: v0.6.6 beta
+
+New *remainders_daily.py* script to send daily remainders following *prefix_maillist_daily.csv*.
+New functions in **GCalendar()** and **FormatHtml()**.  
+
 ## 2025-05-26: v0.6.5 beta
 
 Now **update_token()** in *authorize.py* returns *credentials* to pass them
 to the different clases of **eds_robot**. New **body_from_template()**
 function in **HtmlFormat()** allows you to send an email from a template
-replacing custom tags using *python regex module*.  
+replacing custom tags using *python regex module*. New **GSpreadsheets()** class
+to get and update data on *Google Sheets*.  
 
 ## 2025-05-17: v0.6.0 beta
 

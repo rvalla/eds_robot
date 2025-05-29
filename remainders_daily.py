@@ -11,12 +11,12 @@ from gcalendar import GCalendar
 config_path = "data/config.json"
 config = json.load(open(config_path)) #We load the configuration file...
 t_calendars_path = "data/csv/" + config["file_prefix"] + "calendarlist.csv"
-t_mails_path = "data/csv/" + config["file_prefix"] + "maillist.csv"
+t_mails_path = "data/csv/" + config["file_prefix"] + "maillist_daily.csv"
 SENT = 0
 ERRORS = 0
 FAILURES = []
 
-print("------ WEEKLY REMAINDERS -------", end="\n")
+print("------ DAILY REMAINDERS -------", end="\n")
 print("Let's create and send our daily remainders...", end="\n")
 
 #We update our token...
@@ -35,44 +35,29 @@ for l in file:
   t_calendars.append(l.split(";")[0])
 print("The current list of calendars is:", end=" ")
 print(t_calendars, end="\n")
-next_monday = ut.next_monday()
-next_sunday = next_monday + dt.timedelta(days=6)
+today = ut.today()
+tomorrow = today + dt.timedelta(days=1)
 
 #Ready to collect all events...
 print("I am ready to collect all events in the next weeks...", end="\n")
-all_events = calendar.build_events_list(t_calendars, next_monday)
-
-#To decide is the event contains any later tags...
-def is_later_event(tags, event):
-  is_important = False
-  for t in tags:
-    if bool(re.search(t, event)):
-      is_important = True
-      break
-  return is_important
+all_events = calendar.build_daily_events_list(t_calendars, today, tomorrow)
 
 #Filtering all events to get a personalize user list...
-def filter_events(events, selected_calendars, later_count, later_tags):
-  next_week_events = []
-  later_events = []
+def filter_events(events, selected_calendars):
+  daily_events = []
   n = 0
   s = 0
-  while events[n][3] < next_sunday and n < len(all_events):
+  while n < len(all_events):
     if events[n][0] in selected_calendars:
-      next_week_events.append(events[n])
+      daily_events.append(events[n])
     n += 1
-  while s < later_count and n < len(events):
-    if is_later_event(later_tags, events[n][2]) and events[n][0] in selected_calendars:
-      later_events.append(events[n])
-      s += 1
-    n += 1
-  return next_week_events, later_events
+  return daily_events
 
 #Let's send an email...
-def send_remainders_mail(to, events, selected_calendars, later_count, later_tags):
-  next_week_events, later_events = filter_events(events, selected_calendars, later_count, later_tags)
-  message_body = html.remainders_mail_body(next_week_events, later_events)
-  html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: Próxima semana", message_body)
+def send_daily_remainders_mail(to, events, selected_calendars):
+  daily_events = filter_events(events, selected_calendars)
+  message_body = html.daily_remainders_mail_body(daily_events)
+  html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: Tu agenda de hoy", message_body)
   mail.send_mail(config["mail"], to, html_message)
 
 #We can iterete our configuration file now...
@@ -80,14 +65,14 @@ t_mails = []
 file = open(t_mails_path).readlines()[1:]
 for l in file:
   data = l.split(";")
-  t_mails.append((data[0], data[1].split(","), int(data[3]), data[4].split(",")))
+  t_mails.append((data[0], data[1].split(",")))
 
 print("The mailing list was created!", end="\n")
 print("I am ready to start sending mails...", end="\n")
 
 for m in t_mails:
   try:
-    send_remainders_mail(m[0], all_events, m[1], m[2], m[3])
+    send_daily_remainders_mail(m[0], all_events, m[1])
     SENT += 1
   except Exception as e:
     print("I couldn't send anything to " + m[0] + "...", end="\n")
@@ -99,7 +84,7 @@ for m in t_mails:
 file = open("data/csv/stats.csv", "a")
 line = dt.date.today().isoformat() + ";"
 line += str(config["testing"]) + ";"
-line += "remainders;"
+line += "dailyremainders;"
 line += str(SENT) + ";"
 line += str(ERRORS) + ";"
 line += str(FAILURES) + "\n"

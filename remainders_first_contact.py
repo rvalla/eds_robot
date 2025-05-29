@@ -19,6 +19,9 @@ if config["testing"]:
 else:
   FIRST_MAIL = config["last_first_contact"]
 
+print("------ REMAINDERS: FIRST CONTACT -------", end="\n")
+print("Let's create and send our first contact to new users of remainders...", end="\n")
+
 #We update our token...
 credentials = auth.update_token("data/", [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
 
@@ -47,8 +50,9 @@ for m in t_mails:
   try:
     send_first_contact_mail(m[0], calendar.calendars, m[1], m[2], m[3], m[4])
     SENT += 1
-  except:
+  except Exception as e:
     print("I couldn't send anything to " + m[0] + "...", end="\n")
+    print(e, end="\n")
     ERRORS += 1
     FAILURES.append(m[0])
 

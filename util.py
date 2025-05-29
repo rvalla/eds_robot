@@ -15,6 +15,10 @@ class Util():
     weekday = today.weekday()
     return today - dt.timedelta(days=weekday)
 
+  #Getting today 0:00 date...
+  def today(self):
+    return dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+
   #Getting a datetime object from iso format...
   def isoformat_to_date(self, s):
     return dt.date.fromisoformat(s)
