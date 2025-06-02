@@ -28,7 +28,7 @@ credentials = auth.update_token("data/", [config["mail_scope"], config["calendar
 #We need an instance Html(), GMail() and GCalendar():
 html = HtmlFormat("data/", config["file_prefix"])
 mail = GMail(config["token"], credentials)
-calendar = GCalendar(config["token"], credentials)
+calendar = GCalendar(credentials, -3)
 
 #Let's send an email...
 def send_first_contact_mail(to, calendars_data, calendars_suscriptions, calendars_permissions, later_count, later_tags):

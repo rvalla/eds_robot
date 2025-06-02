@@ -15,3 +15,7 @@ date;testing;run;sent;errors;failures
 2025-05-27;True;mediadores;1;0;[]
 2025-05-27;True;mediadores;1;0;[]
 2025-05-28;True;remainders;4;0;[]
+2025-05-29;False;dailyremainders;2;0;[]
+2025-05-29;False;mediadores;46;0;[]
+2025-05-30;False;dailyremainders;2;0;[]
+2025-05-30;False;remainders;52;0;[]

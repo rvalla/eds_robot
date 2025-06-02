@@ -2,6 +2,12 @@
 
 # eds_robot: changelog
 
+## 2025-06-01: v0.6.7 beta
+
+Solving errors related to timezone in **GCalendar()**. Now functions *next_monday()* and
+*last_monday()* in **Util()** insert a 15' offset to avoid getting *all day events* from
+the day before.  
+
 ## 2025-05-28: v0.6.6 beta
 
 New *remainders_daily.py* script to send daily remainders following *prefix_maillist_daily.csv*.

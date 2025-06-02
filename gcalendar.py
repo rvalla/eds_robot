@@ -7,9 +7,9 @@ class GCalendar():
   "The class to work with Google Cloud Calendar API"
 
   #We need our credentials and the service...
-  def __init__(self, credentials_path, credentials):
+  def __init__(self, credentials, timezone_offset):
     self.today = dt.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
-    self.timezone = dt.timezone(dt.timedelta(hours=-3))
+    self.timezone = dt.timezone(dt.timedelta(hours=timezone_offset))
     self.service = service = build("calendar", "v3", credentials=credentials)
     self.calendars = {}
     self.update_calendar_list()
@@ -126,7 +126,7 @@ class GCalendar():
 
   #To get events on a calendar from date...
   def get_calendar_events(self, calendar_id, start_date, *, max_results=100):
-    sd = start_date.isoformat() + "Z"
+    sd = start_date.astimezone(self.timezone).isoformat()
     events = self.service.events().list(calendarId=calendar_id, timeMin=sd,
                                   singleEvents=True, orderBy="startTime",
                                   maxResults=max_results).execute()
@@ -135,8 +135,8 @@ class GCalendar():
 
   #To get events on a calendar from date...
   def get_calendar_events_in_period(self, calendar_id, start_date, end_date):
-    sd = start_date.isoformat() + "Z"
-    ed = end_date.isoformat() + "Z"
+    sd = start_date.astimezone(self.timezone).isoformat()
+    ed = end_date.astimezone(self.timezone).isoformat()
     events = self.service.events().list(calendarId=calendar_id, timeMin=sd,
                                   timeMax=ed,singleEvents=True,
                                   orderBy="startTime").execute()
