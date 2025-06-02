@@ -94,10 +94,11 @@ class HtmlFormat():
   def summary_cell(self, calendar, summary, description, event_url, meet_call):
     cell = "<td colspan=3>"
     cell += self.html_tagging("h2", summary)
-    cell += description
+    if len(description) > 0:
+      cell += description + "<br>"
     if not meet_call == None:
-      cell += "<br>" + self.html_link(meet_call, "Videollamada de Google Meet")
-    cell += "<br>" + self.html_link(event_url, "Ver evento en " + calendar)
+      cell += self.html_link(meet_call, "Videollamada de Google Meet") + "<br>"
+    cell += self.html_link(event_url, "Ver evento en " + calendar)
     cell += "</td>\n"
     return cell
 

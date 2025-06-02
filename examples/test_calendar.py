@@ -21,42 +21,47 @@ events_count_in_file = 20
 calendars = ["robot@eds.edu.ar", "Test (BOT)"]
 today_t = dt.datetime.today()
 today_d = dt.date.today()
+creating = True #Deciding if we create our random events at the beginning of this test...
 cleaning = False #Deciding if we delete our random events at the end of this test...
 
-#We create a file to test bulk event creation:
-events_file = open("../data/csv/test_calendarevents.csv", "w")
-events_file.write("calendar_name;event_summary;event_description;start_date;start_time;end_date;end_time\n")
-for e in range(events_count_in_file):
-  events_file.write(rd.choice(calendars) + ";")
-  events_file.write("Test " + str(e+1) + ";")
-  events_file.write("This is a bulk test using test_calendar.py in /examples" + rd.choice([" #importante","",""]) +  ".;")
-  if rd.random() < 0.4:
-    start_date = today_d + dt.timedelta(days=rd.randint(0,30))
-    end_date = start_date + dt.timedelta(days=1)
-    events_file.write(str(start_date.day) + "/" + str(start_date.month) + "/" + str(start_date.year) + ";-;")
-    events_file.write(str(end_date.day) + "/" + str(end_date.month) + "/" + str(end_date.year) + ";-\n")
-  else:
-    start_date = today_t + dt.timedelta(days=rd.randint(0,30), hours=rd.randint(0,23))
-    end_date = start_date + dt.timedelta(hours=rd.randint(0,4), minutes=rd.randint(30,60))
-    events_file.write(str(start_date.day) + "/" + str(start_date.month) + "/" + str(start_date.year) + ";")
-    events_file.write(str(start_date.hour) + ":" + str(start_date.minute) + ";")
-    events_file.write(str(end_date.day) + "/" + str(end_date.month) + "/" + str(end_date.year) + ";")
-    events_file.write(str(end_date.hour) + ":" + str(end_date.minute) + "\n")
-events_file.close()
+if creating:
+  #We create a file to test bulk event creation:
+  events_file = open("../data/csv/test_calendarevents.csv", "w")
+  events_file.write("calendar_name;event_summary;event_description;start_date;start_time;end_date;end_time\n")
+  for e in range(events_count_in_file):
+    events_file.write(rd.choice(calendars) + ";")
+    events_file.write("Test " + str(e+1) + ";")
+    if rd.random() < 0.7:
+      events_file.write("This is a bulk test using test_calendar.py in /examples" + rd.choice([" #importante","",""]) +  ".;")
+    else:
+      events_file.write("-;")
+    if rd.random() < 0.4:
+      start_date = today_d + dt.timedelta(days=rd.randint(0,30))
+      end_date = start_date + dt.timedelta(days=1)
+      events_file.write(str(start_date.day) + "/" + str(start_date.month) + "/" + str(start_date.year) + ";-;")
+      events_file.write(str(end_date.day) + "/" + str(end_date.month) + "/" + str(end_date.year) + ";-\n")
+    else:
+      start_date = today_t + dt.timedelta(days=rd.randint(0,30), hours=rd.randint(0,23))
+      end_date = start_date + dt.timedelta(hours=rd.randint(0,4), minutes=rd.randint(30,60))
+      events_file.write(str(start_date.day) + "/" + str(start_date.month) + "/" + str(start_date.year) + ";")
+      events_file.write(str(start_date.hour) + ":" + str(start_date.minute) + ";")
+      events_file.write(str(end_date.day) + "/" + str(end_date.month) + "/" + str(end_date.year) + ";")
+      events_file.write(str(end_date.hour) + ":" + str(end_date.minute) + "\n")
+  events_file.close()
 
-#We are ready to create some events:
-for e in range(events_count):
-  if rd.random() < 0.4:
-    start_date = today_d + dt.timedelta(days=rd.randint(0,14))
-    end_date = start_date + dt.timedelta(days=1)
-    calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test " + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, True)
-  else:
-    start_date = today_t + dt.timedelta(days=rd.randint(0,14), hours=rd.randint(0,23))
-    end_date = start_date + dt.timedelta(hours=rd.randint(0,4), minutes=rd.randint(30,60))
-    calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test " + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, False)
+  #We are ready to create some events:
+  for e in range(events_count):
+    if rd.random() < 0.4:
+      start_date = today_d + dt.timedelta(days=rd.randint(0,14))
+      end_date = start_date + dt.timedelta(days=1)
+      calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test " + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, True)
+    else:
+      start_date = today_t + dt.timedelta(days=rd.randint(0,14), hours=rd.randint(0,23))
+      end_date = start_date + dt.timedelta(hours=rd.randint(0,4), minutes=rd.randint(30,60))
+      calendar.create_event(calendar.calendars[rd.choice(calendars)]["id"], "Test " + str(e+1), "Testing EDS Robot event creation function.", start_date, end_date, False)
 
-#We now create all events in our recently created file:
-calendar.create_events("../data/csv/test_calendarevents.csv")
+  #We now create all events in our recently created file:
+  calendar.create_events("../data/csv/test_calendarevents.csv")
 
 #We now can retrieve our events...
 all_events = []

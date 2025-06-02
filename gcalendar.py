@@ -18,7 +18,8 @@ class GCalendar():
   def create_event(self, calendar_id, summary, description, start, end, fullday):
     event = {}
     event["summary"] = summary
-    event["description"] = description
+    if not description == None:
+      event["description"] = description
     event["guestsCanInviteOthers"] = False
     event["guestsCanSeeOtherGuests"] = False
     if fullday:
@@ -37,7 +38,10 @@ class GCalendar():
       event = l[:-1].split(";")
       calendar_id = self.calendars[event[0]]["id"]
       summary = event[1]
-      description = event[2]
+      if not event[2] == "-":
+        description = event[2]
+      else:
+        description = None
       fullday, start = self.create_date(event[3], event[4])
       fullday, end = self.create_date(event[5], event[6])
       self.create_event(calendar_id, summary, description, start, end, fullday)
@@ -85,7 +89,10 @@ class GCalendar():
   def clean_event_data(self, calendar_name, event):
     data = [calendar_name]
     data.append(event["summary"])
-    data.append(event["description"])
+    if "description" in event:
+      data.append(event["description"])
+    else:
+      data.append("")
     data.append(self.get_event_date(event["start"]))
     data.append(self.get_event_date(event["end"]))
     data.append(self.get_interval(data[3]))

@@ -4,9 +4,11 @@
 
 ## 2025-06-01: v0.6.7 beta
 
-Solving errors related to timezone in **GCalendar()**. Now functions *next_monday()* and
-*last_monday()* in **Util()** insert a 15' offset to avoid getting *all day events* from
-the day before.  
+Solving errors in **GCalendar()**: timezone was not used in *get_calendar_events()* and
+*get_calendar_events_in_period()*, *clean_event_data()* crashed when received an event
+without description.  
+Now functions *next_monday()* and *last_monday()* in **Util()** insert a 15' offset to avoid
+getting *all day events* from the day before.  
 
 ## 2025-05-28: v0.6.6 beta
 
