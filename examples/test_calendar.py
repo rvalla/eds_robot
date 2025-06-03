@@ -11,6 +11,9 @@ config = json.load(open("../data/config.json")) #We load the configuration file.
 credentials = auth.update_token(config["ex_auth"], #First we get our credentials...
                 [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
 
+print("------ GCalendar() TEST -------", end="\n")
+print("Ready to run a test of GCalendar() functions...", end="\n")
+
 #We need an instance of GCalendar(token_path, ):
 calendar = GCalendar(credentials, -3)
 
@@ -78,3 +81,6 @@ if cleaning:
   for c in range(len(calendars)):
     for e in all_events[c]:
       calendar.delete_event(calendar.calendars[calendars[c]]["id"], e["id"])
+
+print("That's all!", end="\n")
+print("-----------", end="\n")

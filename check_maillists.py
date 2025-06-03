@@ -38,6 +38,7 @@ def check_number(string_n):
     is_number = False
   return is_number
 
+print("------ CHECK: MAILING LIST -------", end="\n")
 print("I will check the mailing list now...", end="\n")
 for l in range(len(maillist)):
   data = maillist[l].split(";")
@@ -92,3 +93,4 @@ else:
     print(e)
 
 print("That's all!", end="\n")
+print("-----------", end="\n")

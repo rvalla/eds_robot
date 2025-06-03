@@ -11,6 +11,9 @@ spreadsheet_data = json.load(open("../data/test_spreadsheets.json")) #We load sp
 credentials = auth.update_token(config["ex_auth"], #First we get our credentials...
                 [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
 
+print("------ GSpreadsheets() TEST -------", end="\n")
+print("Ready to run a test of GSpreadsheets() functions...", end="\n")
+
 #We need an instance of GSpreadsheets():
 sheets = GSpreadsheets(config["ex_token"], credentials)
 
@@ -68,3 +71,4 @@ sheets.write_ranges(spreadsheet_id, the_ranges, new_data)
 print("I wrote the new numbers into the sheet!", end="\n\n")
 
 print("That's all!", end="\n")
+print("-----------", end="\n")

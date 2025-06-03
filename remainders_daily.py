@@ -92,3 +92,4 @@ file.write(line)
 file.close()
 
 print("That's all!", end="\n")
+print("-----------", end="\n")

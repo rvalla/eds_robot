@@ -6,7 +6,9 @@ import authorize as auth
 from gmail import GMail
 from htmlformat import HtmlFormat
 
-print("I am ready to test my mailing capabilities...", end="\n")
+print("------ GMAIL() TEMPLATE TEST -------", end="\n")
+print("Ready to run a test of GMail() templates...", end="\n")
+
 config = json.load(open("../data/config.json")) #We load the configuration file...
 credentials = auth.update_token(config["ex_auth"], #First get our credentials...
               [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]]) 
@@ -36,4 +38,6 @@ html_message = mail.create_html_mail(config["mail"], to, "Template test", messag
 
 #We are ready to send our emails...
 mail.send_mail(config["mail"], to, html_message)
+
 print("That's all!", end="\n")
+print("-----------", end="\n")

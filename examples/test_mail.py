@@ -12,6 +12,9 @@ config = json.load(open("../data/config.json")) #We load the configuration file.
 credentials = auth.update_token(config["ex_auth"], #First we get our credentials...
                 [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
 
+print("------ GMail() TEST -------", end="\n")
+print("Ready to run a test of GMail() functions...", end="\n")
+
 #We need an instance of Mail():
 mail = GMail(config["ex_token"], credentials)
 html = HtmlFormat(config["ex_html"], config["file_prefix"])
@@ -58,4 +61,6 @@ html_message = mail.create_html_mail(config["mail"], to, "Test", message_body)
 
 #We are ready to send our emails...
 mail.send_mail(config["mail"], to, html_message)
+
 print("That's all!", end="\n")
+print("-----------", end="\n")
