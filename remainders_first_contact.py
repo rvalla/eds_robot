@@ -1,7 +1,7 @@
 import re
 import json
-import datetime as dt
 import authorize as auth
+from util import Util
 from htmlformat import HtmlFormat
 from gmail import GMail
 from gcalendar import GCalendar
@@ -25,7 +25,8 @@ print("Let's create and send our first contact to new users of remainders...", e
 #We update our token...
 credentials = auth.update_token("data/", [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
 
-#We need an instance Html(), GMail() and GCalendar():
+#We need an instance Util(), Html(), GMail() and GCalendar():
+ut = Util()
 html = HtmlFormat("data/", config["file_prefix"])
 mail = GMail(config["token"], credentials)
 calendar = GCalendar(credentials, -3)
@@ -58,7 +59,7 @@ for m in t_mails:
 
 #We save our data in stats.csv now...
 file = open("data/csv/stats.csv", "a")
-line = dt.date.today().isoformat() + ";"
+line = ut.iso_today() + ";"
 line += str(config["testing"]) + ";"
 line += "first_contact;"
 line += str(SENT) + ";"

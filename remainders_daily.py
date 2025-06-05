@@ -1,6 +1,5 @@
 import re
 import json
-import datetime as dt
 import authorize as auth
 from htmlformat import HtmlFormat
 from util import Util
@@ -36,7 +35,7 @@ for l in file:
 print("The current list of calendars is:", end=" ")
 print(t_calendars, end="\n")
 today = ut.today()
-tomorrow = today + dt.timedelta(days=1)
+tomorrow = ut.add_days(today, 1)
 
 #Ready to collect all events...
 print("I am ready to collect all events in the next weeks...", end="\n")
@@ -82,7 +81,7 @@ for m in t_mails:
 
 #We save our data in stats.csv now...
 file = open("data/csv/stats.csv", "a")
-line = dt.date.today().isoformat() + ";"
+line = ut.iso_today() + ";"
 line += str(config["testing"]) + ";"
 line += "dailyremainders;"
 line += str(SENT) + ";"

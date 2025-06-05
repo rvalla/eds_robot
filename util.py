@@ -22,6 +22,14 @@ class Util():
     #We insert a 15' offset to avoid all day events from the day before...
     return dt.datetime.today().replace(hour=0, minute=15, second=0, microsecond=0)
 
+  #Adding days to a date...
+  def add_days(self, date, days):
+    return date + dt.timedelta(days=days-1, hours=23, minutes=30)
+
+  #Getting the date...
+  def iso_today(self):
+    return dt.date.today().isoformat()
+
   #Getting a datetime object from iso format...
   def isoformat_to_date(self, s):
     return dt.date.fromisoformat(s)

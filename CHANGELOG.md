@@ -2,6 +2,11 @@
 
 # eds_robot: changelog
 
+## 2025-06-04: v0.6.8 beta
+
+Improving **Util()**: new *add_days(date, days)* function to get time spans correctly (to
+avoid getting events which start out of the range.  
+
 ## 2025-06-01: v0.6.7 beta
 
 Solving errors in **GCalendar()**: timezone was not used in *get_calendar_events()* and
