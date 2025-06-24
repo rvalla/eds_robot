@@ -2,6 +2,10 @@
 
 # eds_robot: changelog
 
+## 2025-06-24: v0.6.9 beta
+
+Adding a new *check_calendartags.py* script to analyse the use of *later_tags*.  
+
 ## 2025-06-04: v0.6.8 beta
 
 Improving **Util()**: new *add_days(date, days)* function to get time spans correctly (to
