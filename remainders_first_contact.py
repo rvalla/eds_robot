@@ -58,7 +58,7 @@ for m in t_mails:
     FAILURES.append(m[0])
 
 #We save our data in stats.csv now...
-file = open("data/csv/stats.csv", "a")
+file = open("data/stats/stats.csv", "a")
 line = ut.iso_today() + ";"
 line += str(config["testing"]) + ";"
 line += "first_contact;"
