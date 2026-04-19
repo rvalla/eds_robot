@@ -74,7 +74,7 @@ def send_remainders_mail(to, events, selected_calendars, later_count, later_tags
   html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: Próxima semana", message_body)
   mail.send_mail(config["mail"], to, html_message)
 
-#We can iterete our configuration file now...
+#We can iterate our configuration file now...
 t_mails = []
 file = open(t_mails_path).readlines()[1:]
 for l in file:

@@ -2,6 +2,15 @@
 
 # eds_robot: changelog
 
+## 2026-04-19: v0.6.11 beta
+
+New script *remainderserrata.py* to send mails in case the personalized *remainders* contain mistakes.  
+Some necessary changes were implemented in **GCalendar()**, **HTML()** and **Util()**.  
+
+## 2026-02-16: v0.6.10 beta
+
+Changing path to save usage data.  
+
 ## 2025-06-24: v0.6.9 beta
 
 Adding a new *check_calendartags.py* script to analyse the use of *later_tags*.  

@@ -13,7 +13,7 @@ errors = []
 DOMAIN = "eds.edu.ar"
 CALENDARS = ["Agenda (BOT)","No hay clases (BOT)","1ro (BOT)","2do (BOT)","3ro (BOT)","4to (BOT)",
           "5to (BOT)","6to (BOT)","7mo (BOT)","Coordinación (BOT)","Secretaría (BOT)","English Team (BOT)",
-          "robot@eds.edu.ar", "Test (BOT)", "-"]
+          "Inicial (BOT)", "robot@eds.edu.ar", "Test (BOT)", "-", "lbontempi@eds.edu.ar"]
 TAGS = ["#importante", "#feriados", "#acto"]
 
 def check_domain(address):
@@ -27,6 +27,7 @@ def check_list(in_file, true_list):
   for i in in_file:
     if not i in true_list:
       is_healthy = False
+      print(i)
       break
   return is_healthy
 

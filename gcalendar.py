@@ -85,6 +85,14 @@ class GCalendar():
     merged_list.sort(key=lambda merged_list:merged_list[3])
     return merged_list
 
+  #To build a list of errata date events...
+  def build_errata_events_list(self, calendar_name, start_date, end_date, *, max_results=50):
+    all_events = self.get_calendar_events_in_period(calendar_name, start_date, end_date)
+    events_list = []
+    for e in all_events:
+      events_list.append(self.clean_event_data(calendar_name, e))
+    return events_list
+
   #To extract desired data from events...
   def clean_event_data(self, calendar_name, event):
     data = [calendar_name]
@@ -121,33 +129,33 @@ class GCalendar():
   def get_calendars_events(self, calendars_names, start_date, *, max_results=100):
     all_events = []
     for n in calendars_names:
-      all_events.append(self.get_calendar_events(self.calendars[n]["id"], start_date, max_results=max_results))
+      all_events.append(self.get_calendar_events(n, start_date, max_results=max_results))
     return all_events
 
   #To get daily events from a list of calendars...
   def get_calendars_events_in_period(self, calendars_names, start_date, end_date):
     all_events = []
     for n in calendars_names:
-      all_events.append(self.get_calendar_events_in_period(self.calendars[n]["id"], start_date, end_date))
+      all_events.append(self.get_calendar_events_in_period(n, start_date, end_date))
     return all_events
 
   #To get events on a calendar from date...
-  def get_calendar_events(self, calendar_id, start_date, *, max_results=100):
+  def get_calendar_events(self, calendar_name, start_date, *, max_results=100):
     sd = start_date.astimezone(self.timezone).isoformat()
-    events = self.service.events().list(calendarId=calendar_id, timeMin=sd,
+    events = self.service.events().list(calendarId=self.calendars[calendar_name]["id"], timeMin=sd,
                                   singleEvents=True, orderBy="startTime",
                                   maxResults=max_results).execute()
-    print("I get events in calendar " + calendar_id, end="\n")
+    print("I get events in calendar " + calendar_name, end="\n")
     return events.get("items")
 
   #To get events on a calendar from date...
-  def get_calendar_events_in_period(self, calendar_id, start_date, end_date):
+  def get_calendar_events_in_period(self, calendar_name, start_date, end_date):
     sd = start_date.astimezone(self.timezone).isoformat()
     ed = end_date.astimezone(self.timezone).isoformat()
-    events = self.service.events().list(calendarId=calendar_id, timeMin=sd,
+    events = self.service.events().list(calendarId=self.calendars[calendar_name]["id"], timeMin=sd,
                                   timeMax=ed,singleEvents=True,
                                   orderBy="startTime").execute()
-    print("I get events in calendar " + calendar_id, end="\n")
+    print("I get events in calendar " + calendar_name, end="\n")
     return events.get("items")
 
   #To get a calendars list for a user...

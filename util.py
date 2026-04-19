@@ -22,6 +22,11 @@ class Util():
     #We insert a 15' offset to avoid all day events from the day before...
     return dt.datetime.today().replace(hour=0, minute=15, second=0, microsecond=0)
 
+  #Getting a desired date...
+  def get_date(self, date_string):
+    date = date_string.split("-")
+    return dt.datetime(int(date[0]), int(date[1]), int(date[2])).replace(hour=0, minute=15, second=0, microsecond=0)
+
   #Adding days to a date...
   def add_days(self, date, days):
     return date + dt.timedelta(days=days-1, hours=23, minutes=30)

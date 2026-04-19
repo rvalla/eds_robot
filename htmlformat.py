@@ -50,6 +50,18 @@ class HtmlFormat():
     message_body += self.get_mail_footer()
     return message_body
 
+  #To build an errata mail body...
+  def errata_mail_body(self, errata_events):
+    message_body = self.get_mail_header()
+    message_body += self.errata_hello()
+    message_body += self.title_row("Eventos corregidos:")
+    message_body += self.events_rows(errata_events, False)
+    message_body += self.hr_row()
+    message_body += self.empty_row()
+    message_body += self.errata_disclaimer()
+    message_body += self.get_mail_footer()
+    return message_body
+
   def events_rows(self, events, in_next_week):
     rows = ""
     for e in events:
@@ -121,6 +133,11 @@ class HtmlFormat():
         "consultando los calendarios compartidos que más te interesan.<br>¡Espero que " + \
         "tengas un buen día!</p>\n</td>\n</tr>\n"
 
+  def errata_hello(self):
+    return "<tr>\n<td colspan=4>\n<p>¡Hola!<br>En el último correo que te envié después de consultar " + \
+        "los calendarios compartidos... ¡Había un error! Vuelvo a enviarte los eventos que estaban mal, " + \
+        "ahora corregidos.</p>\n</td>\n</tr>\n"
+
   def remainders_disclaimer(self):
     return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente " + \
         "al consultar los calendarios compartidos. La información suministrada puede contener errores, " + \
@@ -134,6 +151,11 @@ class HtmlFormat():
         "incluso puede ser modificada por humanos en las próximas horas. Si necesitás que incluya " +\
         "eventos de otros calendarios o necesitás permiso para modificar alguno, podés " + \
         "<a href=\"mailto:robot@eds.edu.ar\">escribirme</a>.</p>\n</td>\n</tr>\n"
+
+  def errata_disclaimer(self):
+    return "<tr>\n<td colspan=4>\n<p>Yo, <b>Robot Del Sol</b>, generé este correo automáticamente " + \
+        "siguiendo las instrucciones de un humano que me ejecutó. Ese humano debería haber corregido los " + \
+        "eventos con problemas antes de ejecutarme. Si no fue así, te mandé cualquier cosa."
 
   def body_from_template(self, file_path, targets, data):
     message_body = self.get_mail_header()
