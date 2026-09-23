@@ -47,9 +47,9 @@ class GCalendar():
       self.create_event(calendar_id, summary, description, start, end, fullday)
 
   #To delete an event...
-  def delete_event(self, calendar_id, event_id):
-    self.service.events().delete(calendarId=calendar_id, eventId=event_id).execute()
-    print("I deleted the event " + event_id + " in calendar " + calendar_id + "...", end="\n")
+  def delete_event(self, calendar_name, event_id):
+    self.service.events().delete(calendarId=self.calendars[calendar_name]["id"], eventId=event_id).execute()
+    print("I deleted the event " + event_id + " in calendar " + calendar_name + "...", end="\n")
 
   #To create a datetime object from csv events list...
   def create_date(self, date, time):

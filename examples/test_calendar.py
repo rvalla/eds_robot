@@ -25,7 +25,7 @@ calendars = ["robot@eds.edu.ar", "Test (BOT)"]
 today_t = dt.datetime.today()
 today_d = dt.date.today()
 creating = True #Deciding if we create our random events at the beginning of this test...
-cleaning = False #Deciding if we delete our random events at the end of this test...
+cleaning = True #Deciding if we delete our random events at the end of this test...
 
 if creating:
   #We create a file to test bulk event creation:
@@ -69,18 +69,20 @@ if creating:
 #We now can retrieve our events...
 all_events = []
 for c in calendars:
-  all_events.append(calendar.get_calendar_events(calendar.calendars[c]["id"], today_t))
+  all_events.append(calendar.get_calendar_events(c, today_t))
 
 #We check events in our calendar...
+print("Here there are the events I found:", end="\n")
 for c in range(len(calendars)):
   for e in all_events[c]:
     print(calendars[c] + " - " + e["summary"] + " - " + str(e["start"]), end="\n")
 
 #We clean our calendars to end this test...
 if cleaning:
+  print("I will clean the calendars now:", end="\n")
   for c in range(len(calendars)):
     for e in all_events[c]:
-      calendar.delete_event(calendar.calendars[calendars[c]]["id"], e["id"])
+      calendar.delete_event(calendars[c], e["id"])
 
 print("That's all!", end="\n")
 print("-----------", end="\n")
