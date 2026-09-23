@@ -157,6 +157,12 @@ class HtmlFormat():
         "siguiendo las instrucciones de un humano que me ejecutó. Ese humano debería haber corregido los " + \
         "eventos con problemas antes de ejecutarme. Si no fue así, te mandé cualquier cosa."
 
+  def adhoc_body(self, file_path):
+    message_body = self.get_mail_header()
+    message_body += open(file_path, "r").read()
+    message_body += self.get_mail_footer()
+    return message_body
+  
   def body_from_template(self, file_path, targets, data):
     message_body = self.get_mail_header()
     body = open(file_path, "r").read()
@@ -269,8 +275,7 @@ class HtmlFormat():
         "sacarte cualquier duda que tengas.</p>\n</td>\n</tr>\n"
 
   def get_mail_header(self):
-    header = "<html lang=\"es\">\n<head>\n"
-    header += self.mail_head
+    header = self.mail_head
     header += "<style>\n"
     header += self.mail_style
     header += "</style>\n</head>\n<body>\n<table>\n"
