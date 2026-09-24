@@ -12,9 +12,15 @@ SUCCESS = 0 #To check if we have data to send...
 SENT = 0
 ERRORS = 0
 FAILURES = []
+subject = None
+mail_body = None
 
 print("------ Ad Hoc mails -------", end="\n")
 print("Let's send a custom mail to our maillist...", end="\n")
+print("Please give me an email subject:", end="\n")
+subject = input()
+print("Now give me the path to the file where the email body is:", end="\n")
+mail_body = input()
 
 #We update our token...
 credentials = auth.update_token("data/", [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
@@ -26,11 +32,11 @@ mail = GMail(config["token"], credentials)
 
 #Let's define a function to send emails...
 def send_mail(to, body):
-  html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: Últimas noticias", body)
+  html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: " + subject, body)
   mail.send_mail(config["mail"], to, html_message)
 
 #Building message's body...
-message_body = html.adhoc_body("data/html/" + config["file_prefix"] + "adhoc.html")
+message_body = html.adhoc_body("data/html/" + mail_body)
 
 #We can iterete our configuration file now...
 t_mails = []
