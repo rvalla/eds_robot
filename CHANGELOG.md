@@ -2,6 +2,10 @@
 
 # eds_robot: changelog
 
+## 2026-09-23: v0.6.12 beta
+
+New script *adhoc_mail.py* to send custom emails to the mail list. Some corrections in **GCalendar()**.  
+
 ## 2026-04-19: v0.6.11 beta
 
 New script *remainderserrata.py* to send mails in case the personalized *remainders* contain mistakes.  
