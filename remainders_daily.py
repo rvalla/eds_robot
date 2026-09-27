@@ -9,7 +9,7 @@ from gcalendar import GCalendar
 #Before we start we select our configuration paths...
 config_path = "data/config.json"
 config = json.load(open(config_path)) #We load the configuration file...
-t_calendars_path = "data/csv/" + config["file_prefix"] + "calendarlist.csv"
+t_calendars_path = "data/csv/" + config["file_prefix"] + "calendarlist_daily.csv"
 t_mails_path = "data/csv/" + config["file_prefix"] + "maillist_daily.csv"
 SENT = 0
 ERRORS = 0
