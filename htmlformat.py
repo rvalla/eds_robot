@@ -50,6 +50,18 @@ class HtmlFormat():
     message_body += self.get_mail_footer()
     return message_body
 
+#To build an reschedule mail body...
+  def reschedule_mail_body(self, reschedule_events):
+    message_body = self.get_mail_header()
+    message_body += self.reschedule_hello()
+    message_body += self.title_row("Eventos reprogramados:")
+    message_body += self.events_rows(reschedule_events, False)
+    message_body += self.hr_row()
+    message_body += self.empty_row()
+    message_body += self.errata_disclaimer()
+    message_body += self.get_mail_footer()
+    return message_body
+
   #To build an errata mail body...
   def errata_mail_body(self, errata_events):
     message_body = self.get_mail_header()
@@ -132,6 +144,10 @@ class HtmlFormat():
     return "<tr>\n<td colspan=4>\n<p>¡Hola!<br>Preparé para vos este correo personalizado " + \
         "consultando los calendarios compartidos que más te interesan.<br>¡Espero que " + \
         "tengas un buen día!</p>\n</td>\n</tr>\n"
+
+  def reschedule_hello(self):
+    return "<tr>\n<td colspan=4>\n<p>¡Hola!<br>Un evento importante fue reprogramado a último momento. " + \
+        "Te envío acá abajo dicho evento con su nueva fecha para que lo tengas en cuenta.</p>\n</td>\n</tr>\n"
 
   def errata_hello(self):
     return "<tr>\n<td colspan=4>\n<p>¡Hola!<br>En el último correo que te envié después de consultar " + \

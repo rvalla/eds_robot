@@ -11,12 +11,14 @@ config_path = "data/config.json"
 config = json.load(open(config_path)) #We load the configuration file...
 t_calendars_path = "data/csv/" + config["file_prefix"] + "calendarlist.csv"
 t_mails_path = "data/csv/" + config["file_prefix"] + "maillist.csv"
+mail_subject = None
+mail_type = None
 SENT = 0
 ERRORS = 0
 FAILURES = []
 
-print("------ REMAINDERS ERRATA-------", end="\n")
-print("Let's create and send remainders errata emails...", end="\n")
+print("------ REMAINDERS ERRATA AND RESCHEDULE-------", end="\n")
+print("Let's create and send remainders errata or reschedule emails...", end="\n")
 
 #We update our token...
 credentials = auth.update_token("data/", [config["mail_scope"], config["calendar_scope"], config["spreadsheets_scope"]])
@@ -54,10 +56,21 @@ for e in errata_events:
   if e[1] in selected_events:
     events_to_send.append(e)
 
+print("\nWhat type of e-mail is this?\n\n1. Errata\n2. Rescheduled event")
+mail_type = int(input())
+if mail_type == 1:
+  mail_subject = "Fe de erratas"
+elif mail_type == 2:
+  mail_subject = "Evento reprogramado"
+
 #Let's send an email...
 def send_errata_mail(to, events, selected_calendars, later_count, later_tags):
-  message_body = html.errata_mail_body(events_to_send)
-  html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: Fe de erratas", message_body)
+  message_body = None
+  if mail_type == 1:
+    message_body = html.errata_mail_body(events_to_send)
+  elif mail_type == 2:
+    message_body = html.reschedule_mail_body(events_to_send)
+  html_message = mail.create_html_mail(config["mail"], to, "Robot Del Sol: " + mail_subject, message_body)
   mail.send_mail(config["mail"], to, html_message)
 
 #We can iterate our configuration file now...
@@ -67,7 +80,7 @@ for l in file:
   data = l.split(";")
   t_mails.append((data[0], data[1].split(","), int(data[3]), data[4].split(",")))
 
-print("The mailing list was created!", end="\n")
+print("\nThe mailing list was created!", end="\n")
 print("I am ready to start sending the errata mails...", end="\n")
 
 for m in t_mails:
