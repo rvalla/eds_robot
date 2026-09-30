@@ -43,8 +43,7 @@ t_mails = []
 file = open(t_mails_path).readlines()[1:]
 for l in file:
   aux = l.split(";")
-  if aux[5] == "1": #We add only some addresses...
-    t_mails.append(aux[0])
+  t_mails.append(aux[0])
 
 print("The mailing list was created!", end="\n")
 print("I am ready to start sending mails...", end="\n")
