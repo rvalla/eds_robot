@@ -56,11 +56,11 @@ def filter_events(events, selected_calendars, later_count, later_tags):
   later_events = []
   n = 0
   s = 0
-  while events[n][3] < next_sunday and n < len(all_events):
+  while n < len(all_events) and events[n][3] < next_sunday:
     if events[n][0] in selected_calendars:
       next_week_events.append(events[n])
     n += 1
-  while s < later_count and n < len(events):
+  while n < len(events) and s < later_count:
     if is_later_event(later_tags, events[n][2]) and events[n][0] in selected_calendars:
       later_events.append(events[n])
       s += 1

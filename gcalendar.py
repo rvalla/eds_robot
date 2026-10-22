@@ -107,7 +107,7 @@ class GCalendar():
     data.append(data[3].weekday())
     data.append(event["htmlLink"])
     if "hangoutLink" in event:
-      data.append(event["htmlLink"])
+      data.append(event["hangoutLink"])
     else:
       data.append(None)
     return data
